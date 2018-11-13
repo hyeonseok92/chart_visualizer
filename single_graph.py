@@ -44,7 +44,11 @@ f.close()
 f = open("single_data.dat", "w")
 f.write(title + '\n')
 for i in range(len(TIME)):
-    f.write(str(TIME[i]) + "\t" + str(TPS[i]/1000.0) + "\t" + str(LOG[i]) + '\n')
+    f.write(str(TIME[i]) + "\t" + str(TPS[i]/1000.0) + "\t")
+    if i < len(LOG):
+        f.write(str(LOG[i]) + '\n')
+    else:
+        f.write('0\n')
 f.close()
 
 y2range_max = max(10, ceil(max([ceil(x) for x in LOG]) / 10000.0) * 10000)
