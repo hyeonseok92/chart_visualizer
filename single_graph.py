@@ -40,18 +40,17 @@ while True:
 
         i += 1
 f.close()
+if len(LOG) == 0:
+    for i in range(len(TIME)):
+        LOG.append(0.0)
 
 f = open("single_data.dat", "w")
 f.write(title + '\n')
 for i in range(len(TIME)):
-    f.write(str(TIME[i]) + "\t" + str(TPS[i]/1000.0) + "\t")
-    if i < len(LOG):
-        f.write(str(LOG[i]) + '\n')
-    else:
-        f.write('0\n')
+    f.write(str(TIME[i]) + "\t" + str(TPS[i]/1000.0) + "\t" + str(LOG[i]) + '\n')
 f.close()
 
-y2range_max = max(10, ceil(max([ceil(x) for x in LOG]) / 10000.0) * 10000)
+y2range_max = max(10, ceil(max([ceil(x) for x in LOG]) / 1000.0) * 1000)
 system('sed -i -e "s/^set title.*/set title \\\"' + title + '\\\"/" single_graph.p')
 system('sed -i -e "s/^set y2range.*/set y2range [0:' + str(y2range_max) + ']/" single_graph.p')
 system('sed -i -e "s/^set y2tic.*/set y2tic ' + str(int(y2range_max/5)) + '/" single_graph.p')
